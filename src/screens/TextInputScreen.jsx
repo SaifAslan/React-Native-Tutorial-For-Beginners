@@ -1,6 +1,6 @@
 import { Picker } from "@react-native-picker/picker";
 import React, { useEffect, useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import { Button, Image, StyleSheet, Text, TextInput, View } from "react-native";
 import ColoredBox from "../components/ColoredBox";
 import FlatListComponent from "../components/FlatListComponent";
 
@@ -30,12 +30,16 @@ const TextInputScreen = () => {
     setText("");
   }
 
-  //   console.log("text: ", text);
+  console.log("text: ", text);
 
   return (
     <View>
       <View style={styles.formContainer}>
-        <TextInput value={text} onChangeText={setText} style={styles.input} />
+        <TextInput
+          value={text}
+          onChangeText={(changedText) => setText(changedText)}
+          style={styles.input}
+        />
         {/* notice how i didn't write onPress={handleColorChange()} */}
         <Button onPress={handleColorChange} title="add" />
       </View>
@@ -47,12 +51,19 @@ const TextInputScreen = () => {
           {colors.map((item, index) => {
             return <Picker.Item key={index} label={item} value={item} />;
           })}
+          {/* {colors.map((item, index) => {
+            return <Picker.Item key={index} label={item} value={item} />;
+          })} */}
           {/* <Picker.Item label="Java" value="java" />
         <Picker.Item label="JavaScript" value="js" /> */}
         </Picker>
       </View>
       <ColoredBox color={color} />
       <FlatListComponent colors={colors} />
+      {/* if it is inside your assets folder use require */}
+      <Image source={require("../../assets/icon.png")} />
+      {/* if it is an image from a link use {uri:"imageLink"}*/}
+      <Image source={{ uri: "" }} />
     </View>
   );
 };
@@ -68,7 +79,7 @@ const styles = StyleSheet.create({
   formContainer: {
     width: "100%",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
   },
   picker: {
     width: "100%", //notice here that when you assign a value using percentage, you need to include ""
